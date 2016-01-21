@@ -1,7 +1,7 @@
 module Onesignal
-  # The DeviceStatus class is responsible of exposing the current status of the add device request
+  # The DeviceCreationResult class contains the result of executing the AddDevice command
   # @since 0.0.1
-  class DeviceStatus
+  class DeviceCreationResult
     # @return [String] Onesignal device identifier
     attr_reader :id
     alias device_id id
@@ -19,7 +19,7 @@ module Onesignal
     end
 
     def self.from_gateway_response(response)
-      DeviceStatus.new(response)
+      DeviceCreationResult.new(response)
     end
   end
 end
