@@ -11,12 +11,11 @@ module Onesignal
     def initialize(attributes = {})
       @id = attributes.fetch(:id, '')
       @errors = attributes.fetch(:errors, [])
-      @success = attributes.fetch(:success, false)
     end
 
     # @return [Boolean]
     def success?
-      @success
+      errors.empty?
     end
 
     def self.from_gateway_response(response)
