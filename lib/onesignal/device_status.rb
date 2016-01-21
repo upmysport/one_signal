@@ -1,7 +1,7 @@
 module Onesignal
-  # The AddDeviceStatus class is responsible of exposing the current status of the add device request
+  # The DeviceStatus class is responsible of exposing the current status of the add device request
   # @since 0.0.1
-  class AddDeviceStatus
+  class DeviceStatus
     # @return [String] Onesignal device identifier
     attr_reader :id
     alias device_id id

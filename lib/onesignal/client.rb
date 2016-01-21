@@ -1,6 +1,6 @@
 require 'onesignal/gateway'
-require 'onesignal/add_device_status'
 require 'onesignal/notify_status'
+require 'onesignal/device_status'
 
 module Onesignal
   # The Client is a class responsible of handling all the requests to Onesignal REST API
@@ -25,7 +25,7 @@ module Onesignal
     # @return [AddDeviceStatus] The response object which holds the add device status
     def add_device(device_type:, identifier:)
       response = gateway.create_device(device_type: device_type, identifier: identifier)
-      AddDeviceStatus.new(response)
+      DeviceStatus.new(response)
     end
 
     # Sends a notification to devices
