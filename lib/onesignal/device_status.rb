@@ -18,5 +18,9 @@ module Onesignal
     def success?
       @success
     end
+
+    def self.from_gateway_response(response)
+      DeviceStatus.new(response)
+    end
   end
 end

@@ -20,5 +20,9 @@ module Onesignal
     def success?
       errors.empty?
     end
+
+    def self.from_gateway_response(response)
+      NotificationStatus.new(response)
+    end
   end
 end
