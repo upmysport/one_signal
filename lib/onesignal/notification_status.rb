@@ -1,7 +1,7 @@
 module Onesignal
-  # The NotifyStatus class is responsible of exposing the current status of the notify request
+  # The NotificationStatus class is responsible of exposing the current status of the notify request
   # @since 0.0.1
-  class NotifyStatus
+  class NotificationStatus
     # @return [String] Notification identifier
     attr_reader :id
     alias notification_id id
