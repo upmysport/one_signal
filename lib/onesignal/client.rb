@@ -22,7 +22,7 @@ module Onesignal
     #
     # @param device_type [Integer] nuber of device 0 = iOS, 1 = Android
     # @param identifier [String] Push notification identifier from Google or Apple
-    # @return [AddDeviceStatus] The response object which holds the add device status
+    # @return [DeviceCreationResult]
     def add_device(device_type:, identifier:)
       DeviceCreationResult.from_gateway_response(
         gateway.create_device(device_type: device_type, identifier: identifier)
@@ -40,7 +40,7 @@ module Onesignal
     # @param message [String] message to send
     # @param devices_ids [Array<Sring>, String]
     # @param locale [Symbol] the message locale, `:en, :es, :de`
-    # @return [NotifyStatus] The response objecte wich holds the push notification status
+    # @return [NotificationCreationResult]
     def notify(message:, devices_ids:, locale: :en)
       contents = { locale => message }
       NotificationCreationResult.from_gateway_response(
