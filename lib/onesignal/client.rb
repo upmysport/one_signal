@@ -1,6 +1,6 @@
 require 'onesignal/gateway'
-require 'onesignal/add_device_status'
-require 'onesignal/notify_status'
+require 'onesignal/device_creation_result'
+require 'onesignal/notification_creation_result'
 
 module Onesignal
   # The Client is a class responsible of handling all the requests to Onesignal REST API
@@ -22,10 +22,11 @@ module Onesignal
     #
     # @param device_type [Integer] nuber of device 0 = iOS, 1 = Android
     # @param identifier [String] Push notification identifier from Google or Apple
-    # @return [AddDeviceStatus] The response object which holds the add device status
+    # @return [DeviceCreationResult]
     def add_device(device_type:, identifier:)
-      response = gateway.create_device(device_type: device_type, identifier: identifier)
-      AddDeviceStatus.new(response)
+      DeviceCreationResult.from_gateway_response(
+        gateway.create_device(device_type: device_type, identifier: identifier)
+      )
     end
 
     # Sends a notification to devices
@@ -39,11 +40,12 @@ module Onesignal
     # @param message [String] message to send
     # @param devices_ids [Array<Sring>, String]
     # @param locale [Symbol] the message locale, `:en, :es, :de`
-    # @return [NotifyStatus] The response objecte wich holds the push notification status
+    # @return [NotificationCreationResult]
     def notify(message:, devices_ids:, locale: :en)
       contents = { locale => message }
-      response = gateway.create_notification(contents: contents, include_player_ids: Array(devices_ids))
-      NotifyStatus.new(response)
+      NotificationCreationResult.from_gateway_response(
+        gateway.create_notification(contents: contents, include_player_ids: Array(devices_ids))
+      )
     end
   end
 end

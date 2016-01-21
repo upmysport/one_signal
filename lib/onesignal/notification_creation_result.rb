@@ -1,7 +1,7 @@
 module Onesignal
-  # The NotifyStatus class is responsible of exposing the current status of the notify request
+  # The NotificationCreationResult class contains the result of executing the Notify command
   # @since 0.0.1
-  class NotifyStatus
+  class NotificationCreationResult
     # @return [String] Notification identifier
     attr_reader :id
     alias notification_id id
@@ -16,9 +16,13 @@ module Onesignal
       @errors = attributes.fetch(:errors, [])
     end
 
-    # @return [Boolean] The state of the notification
+    # @return [Boolean]
     def success?
       errors.empty?
+    end
+
+    def self.from_gateway_response(response)
+      NotificationCreationResult.new(response)
     end
   end
 end
