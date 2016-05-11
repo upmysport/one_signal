@@ -10,7 +10,7 @@ module Onesignal
     # @return [Configuration]
     attr_accessor :configuration
 
-    def_delegators :configuration, :app_id, :ios_badge_type, :ios_badge_count, :log
+    def_delegators :configuration, :app_id, :ios_badge_type, :ios_badge_count, :log, :test_type
 
     # @see Client#add_device
     def_delegators :client, :add_device
@@ -21,6 +21,13 @@ module Onesignal
   # @return [Client] The client builder
   def self.client
     Onesignal::Client.new
+  end
+
+  # Exists to allow for realistic testing of initialised configuration
+  # @return [Configuration] The replaced configuration singleton
+  def self.reset_configuration
+    self.configuration = Configuration.new
+    yield(configuration)
   end
 
   # @return [Configuration] The configuration singleton
@@ -39,6 +46,8 @@ module Onesignal
     attr_accessor :ios_badge_count
     # @return [Logger] the default logger for all onesignal instances
     attr_accessor :log
+    # @return [Integer] the test type for all onesignal device creation
+    attr_accessor :test_type
 
     def initialize
       @ios_badge_type = 'Increase'
